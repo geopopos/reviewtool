@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How Would You Rate Us?</title>
+    <style>
+      .rating {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2em;
+      }
+      .star {
+        color: #ccc;
+        cursor: pointer;
+      }
+      .star.selected {
+        color: #ffc107;
+      }
+      .review-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      textarea {
+        width: 500px;
+        height: 200px;
+        margin-top: 10px;
+      }
+      body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    text-align: center;
+  }
+  .review-container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: white;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    padding: 30px;
+    text-align: left;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: bold;
+    color: #333;
+  }
+  .review-box {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.5em;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    margin-bottom: 50px;
+  }
+  .review-text {
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+  }
+  textarea {
+    width: 100%;
+    height: 150px;
+    padding: 15px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    resize: none;
+  }
+      </style>
+
+  </head>
+  <body>
+    <div class="rating">
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+      <span class="star">&#9733;</span>
+    </div>
+    <input type="hidden" id="rating-value" value="0">
+    <div class="review-form">
+      <form>
+        <textarea placeholder="Write your review here..."></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <script>
+      const stars = document.querySelectorAll(".star");
+      stars.forEach((star, index) => {
+        star.addEventListener("click", () => {
+          stars.forEach((star, i) => {
+            if (i <= index) {
+              star.classList.add("selected");
+            } else {
+              star.classList.remove("selected");
+            }
+          });
+          document.querySelector("#rating-value").value = index + 1;
+        });
+        star.addEventListener("mouseenter", () => {
+          stars.forEach((star, i) => {
+            if (i <= index) {
+              star.classList.add("selected");
+            } else {
+              star.classList.remove("selected");
+            }
+          });
+        });
+        star.addEventListener("mouseleave", () => {
+          const ratingValue = document.querySelector("#rating-value").value;
+          stars.forEach((star, i) => {
+            if (i < ratingValue) {
+              star.classList.add("selected");
+            } else {
+              star.classList.remove("selected");
+            }
+          });
+        });
+      });
+      const form = document.querySelector("form");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const rating = document.querySelector("#rating-value").value;
+        const review = document.querySelector("textarea").value;
+        console.log(rating, review)
+        if (rating >= 4){
+            window.location.href = "review-push-google.html?rating=" + rating + "&review=" + review;
+        }
+      });
+    </script>
+  </body>
+</html>
